@@ -47,7 +47,7 @@ let obj = {
 //方法的简写
 let obj ={
     say(){
-        console.log("hello);
+        console.log("hello")
     }
 }
 

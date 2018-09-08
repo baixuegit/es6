@@ -372,6 +372,49 @@ timeout(2000).then((data) => {
 
 
 ```
+- promise的静态方法
+1.Promise.all(异步操作的数组) :当所有异步执行完毕后，再执行all里的函数
+
+2.Promis.race(异步操作的数组) :当第一个异步操作执行完毕后，就执行.then()里的函数
+
+
+
+```js
+function timeout(time){
+    return new promise(function(resolve,reject){
+        setTimeout(function(){
+               // 当异步操作完成之后，我们不需要考虑要执行什么回调函数
+            // 只需要考虑改变当前Promise的状态就可以了
+
+            // 1. resolve函数调用可以将当前promise改变为成功
+            // 2. reject函数调用可以将当前promise改变为失败
+
+            // resolve和reject函数都可以传递参数给回调函数！
+            reject(123);
+        })
+    })
+}
+
+var arr = [timeout(1000), timeout(2000), timeout(1500)];
+Promise.all(arr).then(function(data){
+    console.log("最后一个异步操作执行完了")
+})
+Promise.race(arr).then(function(){
+    console.log("第一个异步操作执行完了")
+
+})
+```
+
+在es5中监听异步ajax 所有请求都执行完毕后执行的方法
+```js
+//确保(ajax6, ajax7两个请求完毕时执行
+        $.when(ajax6, ajax7).done(function () {
+          //所做操作
+        });
+    }
+```
+
+
 
 
 
